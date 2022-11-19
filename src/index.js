@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './styles.css';
 import App from './App';
 import {BrowserRouter as Router} from "react-router-dom"
-import {PicSomeProvider} from "./components/usePicSome"
+import {PicContextProvider} from "./components/Context"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <PicSomeProvider>
+    <PicContextProvider>
         <Router>
             <App />
         </Router>
-    </PicSomeProvider>
+    </PicContextProvider>
 );
 

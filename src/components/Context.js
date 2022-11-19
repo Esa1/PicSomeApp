@@ -1,24 +1,23 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 const {Provider, Consumer} = createContext()
 
-export default function PicSomeProvider(props) {
-    console.log("PicSomeProvider")
-    const [photos, setPhotos] = useState([])
+function PicContextProvider({children}) {
+    const [photos, setPhotos] = useState(['Esa', 'Esa1'])
 
-    function addPhoto(photo) {
-        console.log("addPhoto")
-        setPhotos(prev => (
-            [...prev,
-             photo
-            ]
-        ))
-    }
+    const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
+    useEffect(() => {
+        //Add fetch here
+        fetch(url)
+            .then(response => response.json())
+            .then(data => setPhotos(data))
+    }, [])
+    console.log(photos)
 
     return (
-        <Provider value={{photos, addPhoto}}>
-            {props.children}
-        </Provider>
+    <Provider value={{photos}}>
+        {children}
+    </Provider>
     )
 }
 
-export {PicSomeProvider, Consumer as PicSomeConsumer}
+export {PicContextProvider, Consumer as PicContextConsumer}
