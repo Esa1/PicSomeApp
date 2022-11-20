@@ -2,7 +2,7 @@ import React, {useContext} from "react"
 
 import Image from "../components/Image"
 import {getClass} from "../utils"
-import {Context} from "../components/Context.js"
+import {Context} from "../Context.js"
 
 function Photos() {
     // Get the allPhotos array from context
@@ -15,7 +15,7 @@ function Photos() {
     const imageElements = photos.map((photo, index) => (
         <Image 
             key={photo.id}
-            img={photo.url}
+            img={photo}
             className={getClass(index)}
         />
     ))
