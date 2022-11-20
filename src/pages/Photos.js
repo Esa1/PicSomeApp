@@ -1,10 +1,28 @@
-import React from "react"
+import React, {useContext} from "react"
+
+import Image from "../components/Image"
+import {getClass} from "../utils"
+import {Context} from "../components/Context.js"
 
 function Photos() {
-//    console.log("Photos")
+    // Get the allPhotos array from context
+    // map over it, creating <Image /> elements of the component we just made
+    // <Image key={???} img={<full image object here>} className={getClass(<index of image>)} />
+ 
+    const {photos} = useContext(Context)
+    console.log(photos)
+    
+    const imageElements = photos.map((photo, index) => (
+        <Image 
+            key={photo.id}
+            img={photo.url}
+            className={getClass(index)}
+        />
+    ))
+
     return (
         <main className="photos">
-            <h1>Images go here</h1>
+            {imageElements}
         </main>
     )
 }

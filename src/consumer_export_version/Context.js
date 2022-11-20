@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
-const Context = createContext()
+const {Provider, Consumer} = createContext()
 
 function PicContextProvider({children}) {
     const [photos, setPhotos] = useState(['Esa', 'Esa1'])
@@ -10,17 +10,13 @@ function PicContextProvider({children}) {
         fetch(url)
             .then(response => response.json())
             .then(data => setPhotos(data))
-            .catch((error) => {
-                console.log('Error:,error')
-            })
     }, [])
-    //console.log(photos)
 
     return (
-        <Context.Provider value={{photos}}>
+        <Provider value={{photos}}>
             {children}
-        </Context.Provider>
+        </Provider>
     )
 }
 
-export {PicContextProvider, Context}
+export {PicContextProvider, Consumer as PicContextConsumer}
