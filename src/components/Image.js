@@ -4,25 +4,18 @@ import { Context } from "../Context"
 
 function Image({img, className}) {
     const [isHovered, setIsHovered] = useState(false)
-    const {toggleFavorite} = useContext(Context)
+    const {toggleFavorite, addToCart} = useContext(Context)
 
-    let heartIcon = ''
-    if (img.isFavorite)
-        heartIcon = <i className="ri-heart-fill favorite" 
-                        onClick={() => toggleFavorite(img.id)}></i>
-    else if (isHovered)
-        heartIcon = <i className="ri-heart-line favorite" 
-                        onClick={() => toggleFavorite(img.id)}></i>
-
-/*    function heartIcon() {
+    function heartIcon() {
         if(img.isFavorite) {
             return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
-        } else if(hovered) {
+        } else if(isHovered) {
             return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
         }
-    }*/
+    }
         
-                        const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>
+    const cartIcon = isHovered && <i className="ri-add-circle-line cart" 
+        onClick={() => addToCart(img)}></i>
     
     return (
         <div className={`${className} image-container`} 
@@ -30,7 +23,7 @@ function Image({img, className}) {
              onMouseLeave={() => setIsHovered(false)}
         >
             <img src={img.url} className="image-grid" alt=""/>
-            {heartIcon /*heartIcon()*/}
+            {heartIcon()}
             {cartIcon}
 
         </div>
@@ -45,14 +38,5 @@ Image.propTypes = {
         url: PropTypes.string.isRequired
     })
 }
-/*
-Add propTypes to the Image component
-
-1. className should be a string
-2. img should be an object, specifically an object with `id`, `url`, and `isFavorite` properties
-    a. Hint: Specifying the properties of an object is called and object's "shape"
-
-https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
-*/
 
 export default Image
