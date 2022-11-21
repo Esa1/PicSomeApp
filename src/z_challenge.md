@@ -1,5 +1,15 @@
 # Challenge
 
+Add propTypes to the Image component
+
+1. className should be a string
+2. img should be an object, specifically an object with `id`, `url`, and `isFavorite` properties
+    a. Hint: Specifying the properties of an object is called and object's "shape"
+
+https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
+
+# Challenge
+
 Make the image display the filled heart icon when it's already favorited
 
 Logic to follow:

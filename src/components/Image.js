@@ -1,19 +1,7 @@
 import React, { useState, useContext } from "react"
-
+import PropTypes from "prop-types"
 import { Context } from "../Context"
-/*
-Make the image display the filled heart icon when it's already favorited
 
-Logic to follow:
-* If the image is favorited, display the filled heart icon always
-* Otherwise, if the image being hovered on, display the heart outline instead
-* If it isn't favorited OR hovered on, don't display anything
-
-Remember to make it so clicking the filled heart icon ALSO runs the toggleFavorite function!
-
-Filled heart icon:
-<i className="ri-heart-fill favorite"></i>
-*/
 function Image({img, className}) {
     const [isHovered, setIsHovered] = useState(false)
     const {toggleFavorite} = useContext(Context)
@@ -36,7 +24,6 @@ function Image({img, className}) {
         
                         const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>
     
-    //console.log(`isHovered=${isHovered}, ID=${img.id}`)
     return (
         <div className={`${className} image-container`} 
              onMouseEnter={() => setIsHovered(true)}
@@ -49,5 +36,23 @@ function Image({img, className}) {
         </div>
     )
 }
+
+Image.propTypes = {
+    className: PropTypes.string, /*May not always be string?*/
+    img: PropTypes.shape ({
+        id: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool,
+        url: PropTypes.string.isRequired
+    })
+}
+/*
+Add propTypes to the Image component
+
+1. className should be a string
+2. img should be an object, specifically an object with `id`, `url`, and `isFavorite` properties
+    a. Hint: Specifying the properties of an object is called and object's "shape"
+
+https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes
+*/
 
 export default Image
