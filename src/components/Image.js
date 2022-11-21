@@ -1,5 +1,6 @@
-import React from "react"
-import { useState } from "react"
+import React, { useState, useContext } from "react"
+
+import { Context } from "../Context"
 
 /*
 Conditionally render the heart and plus icons when an Image component is being hovered on
@@ -12,14 +13,15 @@ Conditionally render the heart and plus icons when an Image component is being h
 */
 
 function Image({img, className}) {
-    //console.log('Image: ' + img)
     const [isHovered, setIsHovered] = useState(false)
-    console.log(`isHovered=${isHovered}, ID=${img.id}`)
+    const {toggleFavorite} = useContext(Context)
 
-    const heartIcon = hovered && <i className="ri-heart-line favorite"></i>
-    const cartIcon = hovered && <i className="ri-add-circle-line cart"></i>
+    const heartIcon = isHovered && <i className="ri-heart-line favorite" 
+                                    onClick={() => toggleFavorite(img.id)}></i>
+    const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>
     
-   return (
+    //console.log(`isHovered=${isHovered}, ID=${img.id}`)
+    return (
         <div className={`${className} image-container`} 
              onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}
