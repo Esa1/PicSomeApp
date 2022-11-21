@@ -13,21 +13,6 @@ property of the photo with the matching `id`
 function PicContextProvider({children}) {
     const [photos, setPhotos] = useState([])
 
-    const toggleFavorite = (id) => {
-    console.log(`toggleFavorite id:${id}`)
-
-    const newPhotos = photos.map(photo => {
-        if(photo.id === id) {
-            console.log(id)
-            console.log(!photo.isFavorite)
-            return {...photo, isFavorite: !photo.isFavorite}
-        }
-        return photo
-    })
-    setPhotos(newPhotos)
-
-    console.log(photos)
-
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
     useEffect(() => {
         //Add fetch here
@@ -39,6 +24,21 @@ function PicContextProvider({children}) {
             })
     }, [])
 
+    function toggleFavorite(id) {
+        console.log(`toggleFavorite id:${id}`)
+
+        const newPhotos = photos.map(photo => {
+            if(photo.id === id) {
+                console.log(id)
+                console.log(!photo.isFavorite)
+                return {...photo, isFavorite: !photo.isFavorite}
+            }
+            return photo
+        })
+        setPhotos(newPhotos)
+    }
+
+    console.log(photos)
     return (
         <Context.Provider value={{photos, toggleFavorite}}>
             {children}

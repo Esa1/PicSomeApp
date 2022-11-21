@@ -1,24 +1,40 @@
 import React, { useState, useContext } from "react"
 
 import { Context } from "../Context"
-
 /*
-Conditionally render the heart and plus icons when an Image component is being hovered on
+Make the image display the filled heart icon when it's already favorited
 
-1. Icon to render for the heart:
-<i className="ri-heart-line favorite"></i>
+Logic to follow:
+* If the image is favorited, display the filled heart icon always
+* Otherwise, if the image being hovered on, display the heart outline instead
+* If it isn't favorited OR hovered on, don't display anything
 
-2. Icon to render for the plus:
-<i className="ri-add-circle-line cart"></i>
+Remember to make it so clicking the filled heart icon ALSO runs the toggleFavorite function!
+
+Filled heart icon:
+<i className="ri-heart-fill favorite"></i>
 */
-
 function Image({img, className}) {
     const [isHovered, setIsHovered] = useState(false)
     const {toggleFavorite} = useContext(Context)
 
-    const heartIcon = isHovered && <i className="ri-heart-line favorite" 
-                                    onClick={() => toggleFavorite(img.id)}></i>
-    const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>
+    let heartIcon = ''
+    if (img.isFavorite)
+        heartIcon = <i className="ri-heart-fill favorite" 
+                        onClick={() => toggleFavorite(img.id)}></i>
+    else if (isHovered)
+        heartIcon = <i className="ri-heart-line favorite" 
+                        onClick={() => toggleFavorite(img.id)}></i>
+
+/*    function heartIcon() {
+        if(img.isFavorite) {
+            return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
+        } else if(hovered) {
+            return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
+        }
+    }*/
+        
+                        const cartIcon = isHovered && <i className="ri-add-circle-line cart"></i>
     
     //console.log(`isHovered=${isHovered}, ID=${img.id}`)
     return (
@@ -27,7 +43,7 @@ function Image({img, className}) {
              onMouseLeave={() => setIsHovered(false)}
         >
             <img src={img.url} className="image-grid" alt=""/>
-            {heartIcon}
+            {heartIcon /*heartIcon()*/}
             {cartIcon}
 
         </div>
