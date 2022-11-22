@@ -7,7 +7,6 @@ function PicContextProvider({children}) {
 
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
     useEffect(() => {
-        //Add fetch here
         fetch(url)
             .then(response => response.json())
             .then(data => setPhotos(data))
@@ -20,8 +19,6 @@ function PicContextProvider({children}) {
 
         const newPhotos = photos.map(photo => {
             if(photo.id === id) {
-                console.log(id)
-                console.log(!photo.isFavorite)
                 return {...photo, isFavorite: !photo.isFavorite}
             }
             return photo
@@ -40,8 +37,8 @@ function PicContextProvider({children}) {
     }
 
     return (
-        <Context.Provider value={{photos, toggleFavorite, addToCart, 
-                                removeFromCart, cartItems}}>
+        <Context.Provider value={{photos, toggleFavorite, cartItems, addToCart, 
+                                removeFromCart}}>
             {children}
         </Context.Provider>
     )
