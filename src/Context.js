@@ -33,8 +33,15 @@ function PicContextProvider({children}) {
         setCartItems(prevItems => [...prevItems, newItem])
     }
 
+    function removeFromCart(id) {
+         setCartItems(prevItems => {
+            return prevItems.filter(item => item.id !== id)
+        } )
+    }
+
     return (
-        <Context.Provider value={{photos, toggleFavorite, addToCart, cartItems}}>
+        <Context.Provider value={{photos, toggleFavorite, addToCart, 
+                                removeFromCart, cartItems}}>
             {children}
         </Context.Provider>
     )

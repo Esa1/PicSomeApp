@@ -3,6 +3,19 @@
 
 # Challenge
 
+Change the cart icon in the header to display the full cart icon if there are any items in the cart
+
+Full class name to use WHEN ITEMS IN CART:
+"ri-shopping-cart-fill ri-fw ri-2x"
+
+Full class name to use WHEN CART IS EMPTY:
+"ri-shopping-cart-line ri-fw ri-2x"
+
+# Challenge
+
+Make it so clicking the little shopping cart icon on the image removes the item from the cart
+# Challenge
+
 Change the plus icon to a full shopping cart icon when an image is already in the cart. This should display whether the image is being hovered or not (like the favorite icon).
 
 Icon to use when item already in cart:
