@@ -19,10 +19,9 @@ function Cart() {
     }
 
     function placeOrder() {
-//        console.log("placeOrder: " + buttonText)
         setIsOrdering(true)
         setTimeout(() => {
-            console.log("Order placed") 
+            console.log("Order placed") //Not a trace
             setIsOrdering(false)
             emptyCart()}, 3000)            
     }
@@ -32,11 +31,14 @@ function Cart() {
             <h1>Check out</h1>
             {cartItemElements}
             <p className="total-cost">Total: {totalCost()}</p>
-            <div className="order-button">
-                <button onClick={() => placeOrder()}>
-                    {isOrdering ? "Ordering..." : "Place order"}
-                </button>
-            </div>
+            {//Only render the "Place Order" button if there are items in the cart
+                cartItems.length > 0 &&
+                <div className="order-button">
+                    <button onClick={() => placeOrder()}>
+                        {isOrdering ? "Ordering..." : "Place order"}
+                    </button>
+                </div>
+            }
         </main>
     )
 }
