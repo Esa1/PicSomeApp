@@ -1,28 +1,16 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import { Context } from "../Context"
-/*
-# Challenge
+import useHover from "../hooks/useHover"
 
-Change the plus icon to a full shopping cart icon when an image is already in the cart. This should display whether the image is being hovered or not (like the favorite icon).
-
-Icon to use when item already in cart:
-<i className="ri-shopping-cart-fill cart"></i>
-
-Hints: 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-https://stackoverflow.com/a/8217584
-*/
 function Image({img, className}) {
-    const [isHovered, setIsHovered] = useState(false)
+    const [hovered, ref] = useHover()
     const {toggleFavorite, addToCart, removeFromCart, cartItems} = useContext(Context)
-//    console.log('IMAGE: ', cartItems)
 
     function heartIcon() {
         if(img.isFavorite) {
             return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
-        } else if(isHovered) {
+        } else if(hovered) {
             return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
         }
     }
@@ -31,14 +19,13 @@ function Image({img, className}) {
         const alreadyInCart = cartItems.some(item => item.id === img.id)
         if(alreadyInCart)
             return <i className="ri-shopping-cart-fill cart" onClick={() => removeFromCart(img.id)}></i>
-        else if (isHovered)
+        else if (hovered)
             return <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
     }
 
     return (
         <div className={`${className} image-container`} 
-             onMouseEnter={() => setIsHovered(true)}
-             onMouseLeave={() => setIsHovered(false)}
+             ref={ref}
         >
             <img src={img.url} className="image-grid" alt=""/>
             {heartIcon()}
